@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monster Grid</title>
+  <style>
+    body {
+      background-color: #111;
+      margin: 20px;
+      font-family: sans-serif;
+    }
+
+    .monster-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .monster-container {
+      position: relative;
+      width: 200px;
+      text-align: center;
+    }
+
+    .monster-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 2px solid #444;
+      border-radius: 8px;
+    }
+
+    .drop-list {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #222;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .monster-container:hover .drop-list {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="monster-grid" id="monsterGrid"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const monsters = [
+        {
+          name: "Plea",
+          image: "https://i.ibb.co/HD0B3kwf/Plea.png",
+          drops: ["Broadsword", "Thrash Spell", "Ragged Cloth", "Paper", "Plea Toe", "Studded Shield", "Leather Collar"]
+        },
+        {
+          name: "Bandit",
+          image: "https://i.ibb.co/8LM1tPKW/Bandit.png",
+          drops: ["Knife", "Bread", "1-5 Coins", "Leather Boots"]
+        },
+        {
+          name: "Skeleton",
+          image: "https://i.ibb.co/whdShNvK/Skeleton.png",
+          drops: ["Ironsword", "Buckler", "Pumpkin", "Torch"]
+        }
+      ];
+
+      const grid = document.getElementById("monsterGrid");
+      if (!grid) return;
+
+      monsters.forEach(monster => {
+        const container = document.createElement("div");
+        container.className = "monster-container";
+
+        const img = document.createElement("img");
+        img.src = monster.image;
+        img.alt = monster.name;
+        img.className = "monster-image";
+
+        const dropList = document.createElement("div");
+        dropList.className = "drop-list";
+        dropList.innerHTML = "<strong>Drops:</strong><br>" + monster.drops.map(d => `- ${d}`).join("<br>");
+
+        container.appendChild(img);
+        container.appendChild(dropList);
+        grid.appendChild(container);
+      });
+    });
+  </script>
+</body>
+</html>
