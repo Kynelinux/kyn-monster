@@ -10,7 +10,6 @@
       margin: 20px;
       font-family: sans-serif;
       color: white;
-      overflow-x: hidden;
     }
 
     .monster-grid {
@@ -44,7 +43,7 @@
     .drop-list {
       display: none;
       position: absolute;
-      bottom: 100%;
+      top: 100%;
       left: 50%;
       transform: translateX(-50%);
       background-color: #222;
@@ -53,7 +52,7 @@
       border-radius: 5px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       white-space: nowrap;
-      z-index: 10;
+      z-index: 1;
     }
 
     .monster-container:hover .drop-list {
@@ -84,77 +83,79 @@
         },
         {
           name: "Occultist Enforcer",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Ironsword", "Buckler", "Health Potion", "Epee", "Forsaken Cross", "Kettle Helm", "Shield Block Spell", "Coins 5-9", "Bread Loaf", "Gray Backpack"]
         },
         {
           name: "Orc General",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Longsword", "Steel Sword"]
         },
         {
           name: "Grizzly Bear",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Leather Coif", "Crossbow", "Spangenhelm", "Green Bag"]
         },
         {
           name: "Lintwurm",
-          image: "https://i.ibb.co/YTLtDWJ/Lintworm.png",
+          image: "https://i.ibb.co/YTLtDWJs/Lintworm.png",
           drops: ["Brass Shield", "Chainmail", "Brass Legs", "Tin Ingot"]
         },
         {
           name: "Monk",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Wooden Staff", "Forsaken Cross", "Brown Backpack", "Coins"]
         },
         {
           name: "Swamp Troll",
-          image: "https://i.ibb.co/gLbV93T/Swamp-Troll.png",
+          image: "https://i.ibb.co/gLbV93TF/Swamp-Troll.png",
           drops: ["Steel Sword"]
         },
         {
           name: "Alpha Wolf",
-          image: "https://i.ibb.co/dw8ChY3/Alpha-Wolf.png",
+          image: "https://i.ibb.co/dw8ChY3B/Alpha-Wolf.png",
           drops: ["Leaf Blade", "Battle Cloak", "Wolf Helm"]
         },
         {
           name: "Cave Spider",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Empty Pot", "Ritual Dagger", "Coins"]
         },
         {
           name: "Imp",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Crystal Staff", "Diamond Ring", "Longbow", "Coins"]
         },
         {
           name: "Bone Eater",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Conjure arrow", "Crowbar"]
         },
         {
           name: "Conquest Fowler",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Bone Bow", "Bone Knife", "Precise shot Spell", "Quoki Headgear"]
         },
         {
           name: "gardener",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Spellbook: DarkBind", "Spellbook: LightMissile", "Regeneration Ring", "Spring Stews", "Blue Orb", "Coins x100"]
         },
         {
           name: "Digger",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Iron Ingot", "Tin Ingot", "Ruby Amulet", "Crystal Ring", "Diamond Ring", "Shovel"]
         },
         {
           name: "Ancient Snake",
-          image: "https://i.ibb.co/39JVSSG/placeholder.png",
+          image: "https://i.ibb.co/39JVSSGq/placeholder.png",
           drops: ["Silver Necklace"]
         }
       ];
 
       const grid = document.getElementById("monsterGrid");
+      if (!grid) return;
+
       monsters.forEach(monster => {
         const container = document.createElement("div");
         container.className = "monster-container";
@@ -177,6 +178,15 @@
         container.appendChild(dropList);
         grid.appendChild(container);
       });
+
+      // Auto-resize iframe height
+      function sendHeight() {
+        const height = document.documentElement.scrollHeight;
+        parent.postMessage({ height: height }, "*");
+      }
+
+      sendHeight();
+      window.addEventListener("resize", sendHeight);
     });
   </script>
 </body>
