@@ -43,7 +43,6 @@
     .drop-list {
       display: none;
       position: absolute;
-      top: 100%;
       left: 50%;
       transform: translateX(-50%);
       background-color: #222;
@@ -53,6 +52,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       white-space: nowrap;
       z-index: 1;
+      bottom: 100%;
+      margin-bottom: 5px;
     }
 
     .monster-container:hover .drop-list {
@@ -178,15 +179,6 @@
         container.appendChild(dropList);
         grid.appendChild(container);
       });
-
-      // Auto-resize iframe height
-      function sendHeight() {
-        const height = document.documentElement.scrollHeight;
-        parent.postMessage({ height: height }, "*");
-      }
-
-      sendHeight();
-      window.addEventListener("resize", sendHeight);
     });
   </script>
 </body>
